@@ -36,7 +36,7 @@ async function run() {
         res.send(result)
     })
 
-    // card Details
+    // card Details 
     app.get('/equipment/:id', async(req,res) => {
         const id = req.params.id
         const query = {_id: new ObjectId(id)}
@@ -47,6 +47,36 @@ async function run() {
     app.post('/equipment', async (req,res) => {
         const newEquipment = req.body
         const result = await equipmentCollections.insertOne(newEquipment)
+        res.send(result)
+    })
+
+    // update item
+    app.get('/equipment/:id', async (req,res) => {
+        const id = req.params.id;
+        const query = {_id: new ObjectId(id)}
+        const result = await equipmentCollections.findOne(query)
+        res.send(result)
+    })
+
+    // update item
+    app.put('/equipment/:id', async (req,res) => {
+        const id = req.params.id
+        const filter = {_id: new ObjectId(id)}
+        const options = {upsert: false}
+        const updatedEquipment = req.body
+        const equipments = {
+            $set: {
+                name:updatedEquipment.name, 
+                price:updatedEquipment.price, 
+                ratting:updatedEquipment.ratting, 
+                processing:updatedEquipment.processing,
+                stock:updatedEquipment.stock, 
+                photo:updatedEquipment.photo, 
+                category:updatedEquipment.category, 
+                details:updatedEquipment.details
+            }
+        }
+        const result = await equipmentCollections.updateOne(filter,equipments,options)
         res.send(result)
     })
 
@@ -102,6 +132,7 @@ async function run() {
         res.send(result) 
     })
 
+    
 
 
 
