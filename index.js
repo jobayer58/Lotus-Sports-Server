@@ -30,8 +30,16 @@ async function run() {
     const equipmentCollections = client.db('LotusSports').collection('sports') 
     // const userCollection = client.db('LotusSports').collection('addCollection')
 
+    // get/show all data in explore page
     app.get('/equipment', async(req,res) => {
         const  cursor = equipmentCollections.find()
+        const result = await cursor.toArray()
+        res.send(result)
+    })
+
+    // get/show all data in home page
+    app.get('/homeEquipment', async(req,res) => {
+        const  cursor = equipmentCollections.find().limit(8)
         const result = await cursor.toArray()
         res.send(result)
     })
