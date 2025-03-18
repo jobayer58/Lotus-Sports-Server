@@ -58,6 +58,19 @@ async function run() {
         res.send(result)
     })
 
+    // category Sports
+    app.get('/categoryEquipment', async (req, res) => {
+            const category = req.query.category; 
+            let query = {};
+            if (category) {
+                query = { category: category }; 
+            }
+            const equipments = await equipmentCollections.find(query).toArray();
+            res.send(equipments);
+       
+    });
+    
+
     // update item
     app.get('/equipment/:id', async (req,res) => {
         const id = req.params.id;
