@@ -58,7 +58,7 @@ async function run() {
         res.send(result)
     })
 
-    // category Sports
+    // category Sports show in home page
     app.get('/categoryEquipment', async (req, res) => {
             const category = req.query.category; 
             let query = {};
